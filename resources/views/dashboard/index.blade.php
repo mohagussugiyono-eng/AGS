@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <title>Dashboard</title>
 
-    <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -22,36 +21,39 @@
 
 <body class="bg-light">
 
-    <!-- NAVBAR -->
     <nav class="navbar navbar-dark bg-primary mb-4">
         <div class="container d-flex justify-content-between">
             <span class="navbar-brand fw-bold">AGS Dashboard</span>
-
-            <form method="POST" action="/logout">
-                @csrf
-                <button class="btn btn-outline-light btn-sm">Logout</button>
-            </form>
+            <div class="d-flex gap-2">
+                <a href="{{ route('histori.klaim') }}" class="btn btn-outline-light btn-sm">
+                    Histori Klaim
+                </a>
+                <form method="POST" action="/logout">
+                    @csrf
+                    <button class="btn btn-outline-light btn-sm">Logout</button>
+                </form>
+            </div>
         </div>
     </nav>
 
     <div class="container">
 
-        <!-- NOTIFIKASI -->
+        {{-- NOTIFIKASI --}}
         @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <div class="alert alert-success alert-dismissible fade show">
                 {{ session('success') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         @endif
 
         @if (session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <div class="alert alert-danger alert-dismissible fade show">
                 {{ session('error') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         @endif
 
-        <!-- USER CARD -->
+        {{-- USER CARD --}}
         <div class="row justify-content-center mb-4">
             <div class="col-md-8">
                 <div class="card shadow-sm">
@@ -64,7 +66,7 @@
                             </div>
 
                             @php
-                                $badge = match ($user->level) {
+                                $badge = match ($level) {
                                     'Bronze' => 'secondary',
                                     'Silver' => 'info',
                                     'Gold' => 'warning',
@@ -73,7 +75,7 @@
                             @endphp
 
                             <span class="badge bg-{{ $badge }} fs-6 px-3 py-2">
-                                {{ $user->level }}
+                                {{ $level }}
                             </span>
                         </div>
 
@@ -81,12 +83,12 @@
 
                         <div class="row text-center">
                             <div class="col">
-                                <p class="mb-1 text-muted">Poin</p>
-                                <h4>{{ number_format($user->points) }}</h4>
+                                <p class="mb-1 text-muted">Total Poin</p>
+                                <h4>{{ number_format($totalPoin) }}</h4>
                             </div>
                             <div class="col">
-                                <p class="mb-1 text-muted">Status</p>
-                                <span class="badge bg-success">Aktif</span>
+                                <p class="mb-1 text-muted">Poin Tersedia</p>
+                                <h4>{{ number_format($poinTersedia) }}</h4>
                             </div>
                         </div>
 
@@ -95,15 +97,15 @@
             </div>
         </div>
 
-        <!-- DISCOUNT TITLE -->
+        {{-- JUDUL DISKON --}}
         <div class="row mb-3">
             <div class="col">
                 <h4>🎁 Diskon Spesial Untukmu</h4>
-                <p class="text-muted">Klik diskon untuk klaim</p>
+                <p class="text-muted">Diskon sesuai level akun kamu</p>
             </div>
         </div>
 
-        <!-- DISCOUNT LIST -->
+        {{-- DAFTAR DISKON --}}
         <div class="row">
             @php
                 $levels = [
@@ -115,10 +117,9 @@
             @endphp
 
             @forelse ($discounts as $discount)
-                @if ($levels[$user->level] >= $levels[$discount->min_level])
+                @if ($levels[$level] >= $levels[$discount->min_level])
                     <div class="col-md-4 mb-4">
                         <div class="card banner-card h-100">
-
                             <div class="card-body">
                                 <span class="badge bg-success mb-2">
                                     {{ $discount->discount_percent }}% OFF
@@ -133,7 +134,7 @@
                                 </p>
 
                                 <small class="text-muted">
-                                    Minimal level: {{ $discount->min_level }}
+                                    Harga poin: {{ number_format($discount->poin_harga) }}
                                 </small>
                             </div>
 
@@ -145,7 +146,6 @@
                                     </button>
                                 </form>
                             </div>
-
                         </div>
                     </div>
                 @endif
@@ -160,9 +160,7 @@
 
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 
 </html>
