@@ -3,12 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Histori Klaim</title>
     <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
+        /* ===== BACKGROUND ===== */
         body {
             min-height: 100vh;
             background-image:
@@ -20,13 +22,15 @@
             background-attachment: fixed;
         }
 
+        /* ===== WRAPPER ===== */
         .history-wrapper {
-            background: rgba(255, 255, 255, 0.82);
+            background: rgba(255, 255, 255, 0.516);
             border-radius: 18px;
             padding: 28px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, .35);
         }
 
+        /* ===== TABLE ===== */
         .table {
             border-radius: 12px;
             overflow: hidden;
@@ -34,7 +38,7 @@
 
         .table thead {
             background: #2563eb;
-            color: #fff;
+            color: #ffffffb8;
         }
 
         .table tbody tr:hover {
@@ -47,19 +51,78 @@
             font-weight: 600;
             padding: 6px 12px;
             border-radius: 20px;
+            font-size: 13px;
+        }
+
+        /* ==========================
+           RESPONSIVE HP ONLY
+        ========================== */
+        @media (max-width: 576px) {
+
+            body {
+                background-attachment: scroll;
+            }
+
+            .container {
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+
+            .history-wrapper {
+                padding: 18px;
+                border-radius: 14px;
+            }
+
+            /* header stack */
+            .history-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .history-header h4 {
+                font-size: 18px;
+            }
+
+            .history-header p {
+                font-size: 13px;
+            }
+
+            .history-header a {
+                width: 100%;
+                text-align: center;
+            }
+
+            /* table text kecil */
+            table {
+                font-size: 13px;
+            }
+
+            th,
+            td {
+                white-space: nowrap;
+            }
+
+            .badge-poin {
+                font-size: 12px;
+                padding: 5px 10px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <div class="container mt-5 mb-5">
+    <div class="container mt-4 mb-5">
         <div class="history-wrapper">
 
-            <div class="d-flex justify-content-between align-items-center mb-4">
+            <!-- HEADER -->
+            <div class="d-flex justify-content-between align-items-center mb-4 history-header">
                 <div>
                     <h4 class="fw-bold mb-1">📜 Histori Klaim Diskon</h4>
-                    <p class="text-muted mb-0">Daftar diskon yang pernah kamu klaim</p>
+                    <p class="text-muted mb-0">
+                        Daftar diskon yang pernah kamu klaim
+                    </p>
                 </div>
 
                 <a href="/dashboard" class="btn btn-outline-primary btn-sm">
@@ -68,7 +131,7 @@
             </div>
 
             @if ($klaim->isEmpty())
-                <div class="alert alert-info">
+                <div class="alert alert-info text-center">
                     Belum ada klaim diskon
                 </div>
             @else
@@ -76,10 +139,10 @@
                     <table class="table table-bordered align-middle">
                         <thead>
                             <tr>
-                                <th width="50">No</th>
+                                <th width="40">No</th>
                                 <th>Nama Diskon</th>
-                                <th width="150">Poin Digunakan</th>
-                                <th width="200">Tanggal Klaim</th>
+                                <th width="140">Poin</th>
+                                <th width="170">Tanggal</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -89,7 +152,7 @@
                                     <td>{{ $k->nama_diskon }}</td>
                                     <td>
                                         <span class="badge-poin">
-                                            {{ number_format($k->poin_digunakan) }} poin
+                                            {{ number_format($k->poin_digunakan) }}
                                         </span>
                                     </td>
                                     <td>

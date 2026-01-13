@@ -2,6 +2,7 @@
 <html lang="id">
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="icon" type="image/png" href="{{ asset('image/logo.png') }}">
@@ -86,6 +87,55 @@
         .password-wrapper {
             position: relative;
         }
+
+        /* ===== RESPONSIVE HP SAJA ===== */
+        @media (max-width: 576px) {
+
+            /* container turun dikit */
+            .container {
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+
+            /* card user */
+            .card-body {
+                padding: 14px;
+            }
+
+            /* banner diskon */
+            .banner-card {
+                height: 190px;
+                border-radius: 14px;
+            }
+
+            .banner-content {
+                padding: 14px;
+            }
+
+            /* teks biar gak kegedean */
+            h4 {
+                font-size: 18px;
+            }
+
+            h5 {
+                font-size: 16px;
+            }
+
+            small {
+                font-size: 12px;
+            }
+
+            /* tombol klaim full */
+            .banner-content button {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            @media (max-width: 576px) {
+                .navbar-brand span {
+                    font-size: 14px;
+                }
+            }
     </style>
 
 </head>
