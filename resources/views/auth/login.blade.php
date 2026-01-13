@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="icon" type="image/png" href="{{ asset('image/logo.png') }}">
 
     <!-- Bootstrap (optional tapi bikin rapi) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -86,12 +87,17 @@
             position: relative;
         }
     </style>
+
 </head>
 
 <body>
 
     <div class="login-box">
-        <h2>🔐 Login User</h2>
+        <div class="text-center mb-4">
+            <img src="{{ asset('image/logo.png') }}" width="80" class="mb-2">
+            <h4 class="fw-bold">AGS Login</h4>
+        </div>
+
 
         @if (session('error'))
             <div class="error">{{ session('error') }}</div>
