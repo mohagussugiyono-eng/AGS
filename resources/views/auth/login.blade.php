@@ -4,37 +4,86 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+
+    <!-- Bootstrap (optional tapi bikin rapi) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
         body {
-            font-family: Arial;
-            background: #f4f4f4;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            /* GANTI FOTO SESUAI GAMBAR KAMU */
+            background-image:
+                linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+                url("/image/bg-dashboard.jpg");
+            background-size: cover;
+            background-position: center;
         }
 
         .login-box {
-            width: 350px;
-            margin: 100px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
+            width: 380px;
+            padding: 30px;
+            border-radius: 18px;
+
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+
+            box-shadow: 0 15px 40px rgba(0, 0, 0, .35);
+            color: #fff;
         }
 
-        input,
-        button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
+        .login-box h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 700;
         }
 
-        button {
-            background: #2563eb;
-            color: white;
+        .form-control {
+            background: rgba(255, 255, 255, 0.85);
             border: none;
-            cursor: pointer;
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+            outline: none;
+        }
+
+        .btn-login {
+            margin-top: 10px;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 600;
         }
 
         .error {
-            color: red;
-            margin-top: 10px;
+            background: rgba(255, 0, 0, .15);
+            border: 1px solid rgba(255, 0, 0, .4);
+            color: #ffdcdc;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .password-wrapper {
+            position: relative;
         }
     </style>
 </head>
@@ -42,16 +91,41 @@
 <body>
 
     <div class="login-box">
-        <h2>Login User</h2>
+        <h2>🔐 Login User</h2>
 
         @if (session('error'))
             <div class="error">{{ session('error') }}</div>
         @endif
+
         <form method="POST" action="/login">
             @csrf
 
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Password" required>
+            <div class="mb-3">
+                <input type="email" name="email" class="form-control" placeholder="Email" required>
+            </div>
 
-            <button type="submit">Login</button>
+            <div class="mb-3 password-wrapper">
+                <input type="password" name="password" id="password" class="form-control" placeholder="Password"
+                    required>
+
+                <span class="toggle-password" onclick="togglePassword()">
+                    👁
+                </span>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 btn-login">
+                Login
+            </button>
         </form>
+    </div>
+
+    <script>
+        function togglePassword() {
+            const pass = document.getElementById('password');
+            pass.type = pass.type === 'password' ? 'text' : 'password';
+        }
+    </script>
+
+</body>
+
+</html>
