@@ -2,31 +2,26 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
+     * Atribut yang boleh diisi secara massal
      */
     protected $fillable = [
         'name',
         'email',
         'password',
+        'points', // poin user
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
+     * Atribut yang disembunyikan saat serialization
      */
     protected $hidden = [
         'password',
@@ -34,9 +29,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * Casting tipe data atribut
      */
     protected function casts(): array
     {
@@ -44,5 +37,53 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * =====================================
+     * MENENTUKAN KELAS USER BERDASARKAN POIN
+     * =====================================
+     */
+    public function getPointClassAttribute(): string
+    {
+        if ($this->points <= 10000) {
+            return 'Bronze';
+        } elseif ($this->points <= 50000) {
+            return 'Silver';
+        } elseif ($this->points <= 100000) {
+            return 'Gold';
+        } else {
+            return 'Platinum';
+        }
+    }
+
+    /**
+     * =====================================
+     * WARNA BADGE (BOOTSTRAP) SESUAI KELAS
+     * =====================================
+     */
+    public function getPointBadgeAttribute(): string
+    {
+        return match ($this->point_class) {
+            'Bronze'   => 'secondary',
+            'Silver'   => 'info',
+            'Gold'     => 'warning',
+            'Platinum' => 'primary',
+            default    => 'dark',
+        };
+    }
+    public function getLevelAttribute()
+    {
+        $points = $this->points;
+
+        if ($points > 100000) {
+            return 'Platinum';
+        } elseif ($points > 50000) {
+            return 'Gold';
+        } elseif ($points > 10000) {
+            return 'Silver';
+        } else {
+            return 'Bronze';
+        }
     }
 }
