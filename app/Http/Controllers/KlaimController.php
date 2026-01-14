@@ -17,7 +17,7 @@ class KlaimController extends Controller
 
     public function claim($id)
     {
-        $user = Auth::user(); // 🔥 FIX DI SINI
+        $user = Auth::user();
         $discount = DB::table('discounts')->find($id);
 
         $levelUser = $this->getUserLevel($user->points);
@@ -57,7 +57,7 @@ class KlaimController extends Controller
     public function histori()
     {
         $klaim = DB::table('klaim_diskon')
-            ->where('user_id', Auth::id()) // 🔥 FIX JUGA
+            ->where('user_id', Auth::id())
             ->orderBy('created_at', 'desc')
             ->get();
 

@@ -7,7 +7,7 @@
     <title>Login</title>
     <link rel="icon" type="image/png" href="{{ asset('image/logo.png') }}">
 
-    <!-- Bootstrap (optional tapi bikin rapi) -->
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -18,7 +18,7 @@
             align-items: center;
             justify-content: center;
 
-            /* GANTI FOTO SESUAI GAMBAR KAMU */
+            /* BAGROUND */
             background-image:
                 linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
                 url("/image/bg-dashboard.jpg");
@@ -88,7 +88,7 @@
             position: relative;
         }
 
-        /* ===== RESPONSIVE HP SAJA ===== */
+        /* ===== RESPONSIVE MOBILE ===== */
         @media (max-width: 576px) {
 
             /* container turun dikit */

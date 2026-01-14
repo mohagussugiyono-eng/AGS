@@ -26,10 +26,10 @@
             border-radius: 0 0 18px 18px;
         }
 
-        /* kasih jarak aman dari navbar */
+        /* jarak dari navbar */
         .page-content {
             padding-top: 80px;
-            /* sesuaikan tinggi navbar */
+            /* tinggi navbar */
         }
 
 
@@ -58,8 +58,8 @@
         body {
             min-height: 100vh;
             background-image:
-                linear-gradient(rgba(255, 255, 255, 0.55),
-                    rgba(0, 0, 0, 0.55)),
+                linear-gradient(rgba(0, 0, 0, 0.45),
+                    rgba(0, 0, 0, 0.45)),
                 url("/image/bg-dashboard.jpg");
             background-size: cover;
             background-position: center;
@@ -70,6 +70,7 @@
         .dashboard-wrapper {
             background: rgba(255, 255, 255, 0.711);
             border-radius: 18px;
+            backdrop-filter: blur(1px);
             padding: 28px;
         }
 
@@ -117,7 +118,7 @@
             border-radius: 20px;
         }
 
-        /* ===== RESPONSIVE HP SAJA ===== */
+        /* ===== RESPONSIVE MOBILE ===== */
         @media (max-width: 576px) {
 
             /* container turun dikit */
